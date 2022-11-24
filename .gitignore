@@ -1,0 +1,5 @@
+eval
+*.pdf
+.* 
+!.gitignore
+!.git

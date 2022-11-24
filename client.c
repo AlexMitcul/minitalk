@@ -6,7 +6,7 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 01:20:34 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/24 01:31:00 by amitcul          ###   ########.fr       */
+/*   Updated: 2022/11/24 05:05:19 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@
 
 #include <unistd.h>
 
-void	handle(char c, int pid)
+/**
+ * SIGUSR1 will send 0
+ * SIGUSR2 will send 1
+*/
+void	handle(char i, int pid)
 {
-	while (c > 0)
+	int	bit;
+
+	bit = 0;
+	while (bit < 8)
 	{
-		if (c & 1)
-		{
-			printf("Try to send 1\n");
+		if ((i & (0x01 << bit)) != 0)
 			kill(pid, SIGUSR1);
-		}
 		else
-		{
-			printf("Try to send 0\n");
 			kill(pid, SIGUSR2);
-		}
-		c = c >> 1;
-		usleep(300);
+		usleep(100);
+		bit++;
 	}
 }
 
