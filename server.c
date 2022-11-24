@@ -6,7 +6,7 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 01:16:01 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/23 01:34:16 by amitcul          ###   ########.fr       */
+/*   Updated: 2022/11/24 01:32:39 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,40 @@
 static void sig_usr(int signo)
 {
 	if (signo == SIGUSR1)
-		printf("get signal from usr1\n");
+		printf("1\n");
 	else if (signo == SIGUSR2)
-		printf("get signal from usr2\n");
-	else
-		printf("get signal %d\n", signo);
+		printf("0\n");
+}
+
+void	print_byte(char c)
+{
+	char res = 0;
+
+	// 127	1111111
+	// c ==	1100011
+	//
+
+
+	while (c > 0)
+	{
+		res |= c & 127;
+		printf("%d\n", res);
+		c = c >> 1;
+	}
+	printf("res = %d\n", res);
+
 }
 
 int main(void)
 {
-	// if (signal(SIGUSR1, sig_usr) == SIG_ERR)
-	// 	printf("Error usr1");
-	// if (signal(SIGUSR2, sig_usr) == SIG_ERR)
-	// 	printf("Error usr2");
-	// for ( ; ; )
-	// 	pause();
-
 	pid_t id = getpid();
 	printf("PID: %d\n", id);
 
+	if (signal(SIGUSR1, sig_usr) == SIG_ERR)
+		printf("Error usr1\n");
+	if (signal(SIGUSR2, sig_usr) == SIG_ERR)
+		printf("Error usr2\n");
+	for ( ; ; )
+		pause();
 	return (0);
 }
