@@ -1,10 +1,18 @@
-all: server client
+
+CC =	cc
+FLAGS =	-Wall -Wextra -Werror
+
+NAME =	minitalk
+
+all: $(NAME)
+
+$(NAME): server client
 
 server:
-	gcc server.c -o server
+	$(CC) $(FLAGS) server.c -o server
 
 client:
-	gcc client.c -o client
+	$(CC) $(FLAGS) client.c -o client
 
 clean:
 	rm -f *.o
