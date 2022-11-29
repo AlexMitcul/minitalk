@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 01:20:34 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/29 08:31:05 by amitcul          ###   ########.fr       */
+/*   Created: 2022/11/29 12:12:13 by amitcul           #+#    #+#             */
+/*   Updated: 2022/11/29 14:37:37 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <string.h>
-
-static int	ft_atoi(char *str)
-{
-	int	res;
-
-	res = 0;
-	while (*str == ' ' || *str == '\f' || *str == '\n' || *str == '\r' || \
-	*str == '\t' || *str == '\v')
-		str++;
-	while (*str == '+')
-		str++;
-	while (*str != '\0')
-	{
-		if (*str >= '0' && *str <= '9')
-			res = res * 10 + (*str - '0');
-		else
-			break ;
-		str++;
-	}
-	return (res);
-}
+#include "../includes/minitalk_bonus.h"
 
 /**
  * SIGUSR1 will send 0
@@ -58,8 +35,8 @@ void	handle(char i, int pid)
 int	main(int argc, char **argv)
 {
 	char	*message;
-	int	pid;
-	int	i;
+	int		pid;
+	int		i;
 
 	if (argc != 3)
 	{
@@ -69,15 +46,11 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	i = 0;
 	message = strdup(argv[2]);
-	while (*message != '\0')
+	while (message[i] != '\0')
 	{
-		handle(*message, pid);
-		message++;
+		handle(message[i], pid);
+		i++;
 	}
-	// while (argv[2][i] != '\0')
-	// {
-	// 	handle(argv[2][i], pid);
-	// 	i++;
-	// }
+	free(message);
 	return (0);
 }

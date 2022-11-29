@@ -6,12 +6,11 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 01:16:01 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/29 08:27:48 by amitcul          ###   ########.fr       */
+/*   Updated: 2022/11/29 13:05:42 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
+#include "../includes/minitalk.h"
 
 void	print_byte(int signal)
 {
@@ -23,25 +22,9 @@ void	print_byte(int signal)
 	bit++;
 	if (bit == 8)
 	{
-		write(1, &character, 1);
+		ft_printf("%c", character);
 		bit = 0;
 		character = 0;
-	}
-}
-
-static void	ft_putchar(char ch)
-{
-	write(1, &ch, 1);
-}
-
-static void	ft_putnbr(int nb)
-{
-	if (nb < 10)
-		ft_putchar('0' + nb);
-	else
-	{
-		ft_putnbr(nb / 10);
-		ft_putnbr(nb % 10);
 	}
 }
 
@@ -56,9 +39,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	id = getpid();
-	write(1, "PID: ", 5);
-	ft_putnbr(id);
-	write(1, "\n", 1);
+	ft_printf("PID: %d\n", id);
 	while (1)
 	{
 		signal(SIGUSR1, print_byte);
