@@ -6,12 +6,13 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 01:20:34 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/24 05:33:33 by amitcul          ###   ########.fr       */
+/*   Updated: 2022/11/29 08:31:05 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <unistd.h>
+#include <string.h>
 
 static int	ft_atoi(char *str)
 {
@@ -49,13 +50,14 @@ void	handle(char i, int pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(500);
 		bit++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
+	char	*message;
 	int	pid;
 	int	i;
 
@@ -66,10 +68,16 @@ int	main(int argc, char **argv)
 	}
 	pid = ft_atoi(argv[1]);
 	i = 0;
-	while (argv[2][i] != '\0')
+	message = strdup(argv[2]);
+	while (*message != '\0')
 	{
-		handle(argv[2][i], pid);
-		i++;
+		handle(*message, pid);
+		message++;
 	}
+	// while (argv[2][i] != '\0')
+	// {
+	// 	handle(argv[2][i], pid);
+	// 	i++;
+	// }
 	return (0);
 }
