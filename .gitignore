@@ -1,5 +1,6 @@
 eval
 *.pdf
-.* 
+.*
+mini* 
 !.gitignore
 !.git
