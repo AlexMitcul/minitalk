@@ -6,16 +6,12 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:37:17 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/29 14:37:35 by amitcul          ###   ########.fr       */
+/*   Updated: 2022/12/03 15:29:31 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-/**
- * SIGUSR1 will send 0
- * SIGUSR2 will send 1
-*/
 void	handle(char i, int pid)
 {
 	int	bit;
@@ -27,30 +23,28 @@ void	handle(char i, int pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(200);
+		usleep(500);
 		bit++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	char	*message;
 	int		pid;
 	int		i;
 
 	if (argc != 3)
 	{
-		write(1, "Invalid arguments count (expected 3)\n", 37);
+		printf("Wrong input!\n");
+		printf("Try: ./client [PID] [Message]\n");
 		return (0);
 	}
 	pid = ft_atoi(argv[1]);
 	i = 0;
-	message = strdup(argv[2]);
-	while (message[i] != '\0')
+	while (argv[2][i] != '\0')
 	{
-		handle(message[i], pid);
+		handle(argv[2][i], pid);
 		i++;
 	}
-	free(message);
 	return (0);
 }

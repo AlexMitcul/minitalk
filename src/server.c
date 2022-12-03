@@ -6,7 +6,7 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 01:16:01 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/29 13:05:42 by amitcul          ###   ########.fr       */
+/*   Updated: 2022/12/03 15:29:30 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 1)
 	{
-		write(1, "Error!\n", 7);
+		printf("Wrong input!\n");
+		printf("Try: './server'\n");
 		return (0);
 	}
 	id = getpid();
