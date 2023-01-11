@@ -6,45 +6,70 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:37:17 by amitcul           #+#    #+#             */
-/*   Updated: 2022/12/03 15:29:31 by amitcul          ###   ########.fr       */
+/*   Updated: 2023/01/11 23:28:52 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-void	handle(char i, int pid)
+void	send_character(int pid, char character)
 {
-	int	bit;
+	char	index;
 
-	bit = 0;
-	while (bit < 8)
+	index = 0;
+	while (index < 8)
 	{
-		if ((i & (0x01 << bit)) != 0)
+		if (character & (1 << index))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(500);
-		bit++;
+		index++;
+		usleep(200);
 	}
+}
+
+void	send_message(int pid, char *message)
+{
+	int	i;
+
+	i = 0;
+	while (message[i] != '\0')
+	{
+		send_character(pid, message[i]);
+		i++;
+	}
+}
+
+int	get_pid(char *pid)
+{
+	int	i;
+
+	i = 0;
+	while (pid[i] != '\0')
+	{
+		if (ft_isdigit(pid[i]) == 0)
+			return (-1);
+		i++;
+	}
+	return (ft_atoi(pid));
 }
 
 int	main(int argc, char **argv)
 {
-	int		pid;
-	int		i;
+	int	pid;
 
 	if (argc != 3)
 	{
-		printf("Wrong input!\n");
-		printf("Try: ./client [PID] [Message]\n");
+		ft_printf("Wrong input!\n");
+		ft_printf("Try: './client [PID] [message]'\n");
 		return (0);
 	}
-	pid = ft_atoi(argv[1]);
-	i = 0;
-	while (argv[2][i] != '\0')
+	pid = get_pid(argv[1]);
+	if (pid == -1)
 	{
-		handle(argv[2][i], pid);
-		i++;
+		ft_printf("Wrong PID.\n");
+		return (0);
 	}
+	send_message(pid, argv[2]);
 	return (0);
 }
