@@ -70,7 +70,7 @@ bonus:
 			cp $(LIBFT)/libft.a .
 			make allbonus
 
-allbonus:		$(NAMEBC) $(NAMEBS)
+allbonus:	$(NAMEBC) $(NAMEBS)
 
 $(NAMEBC):	$(OBJBC) $(OBJF)
 			$(CC) $(FLAGS) $(OBJBC) $(HEADER) libft.a -o $(NAMEBC)
