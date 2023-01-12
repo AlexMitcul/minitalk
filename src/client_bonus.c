@@ -6,7 +6,7 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:37:17 by amitcul           #+#    #+#             */
-/*   Updated: 2023/01/11 23:48:56 by amitcul          ###   ########.fr       */
+/*   Updated: 2023/01/12 16:30:46 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	send_character(int pid, int character)
 {
 	char	index;
 
-	ft_printf("%c", character);
 	index = 0;
 	while (index < 8)
 	{
@@ -39,6 +38,7 @@ void	send_message(int pid, char *message)
 		send_character(pid, (int)message[i]);
 		i++;
 	}
+	send_character(pid, 0);
 }
 
 int	get_pid(char *pid)
@@ -55,10 +55,17 @@ int	get_pid(char *pid)
 	return (ft_atoi(pid));
 }
 
+void	signal_handler(int signal)
+{
+	if (signal == SIGUSR1)
+		ft_printf("Message sent successfully!\n");
+}
+
 int	main(int argc, char **argv)
 {
 	int	pid;
 
+	signal(SIGUSR1, &signal_handler);
 	if (argc != 3)
 	{
 		ft_printf("Wrong input!\n");
