@@ -6,12 +6,12 @@
 /*   By: amitcul <amitcul@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 13:01:23 by amitcul           #+#    #+#             */
-/*   Updated: 2022/11/29 13:01:24 by amitcul          ###   ########.fr       */
+/*   Updated: 2023/01/12 16:31:35 by amitcul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_BONUS
-# define MINITALK_BONUS
+#ifndef MINITALK_H
+# define MINITALK_H
 
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/libft.h"
